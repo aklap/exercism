@@ -1,2 +1,7 @@
 # exercism
-My solutions to exercises for Exercism.io
+Solutions to exercises at [Exercism.io](exercism.io). 
+
+Tracks: 
+___
+
+- JavaScript

@@ -8,7 +8,7 @@
             function findTrue (array) {
                 var keep = [];
                 //Didn't read the instructions, no filter method allowed!
-                for(var i = 0; i<array.length; i++) {
+                for(var i = 0; i < array.length; i++) {
                     if(callback(array[i])){
                         keep.push(array[i]);
                     }
@@ -18,12 +18,12 @@
         },
 
         discard: function (array, callback) {
-            return array === [] ? [] : isFalse(array);
+            return array === [] ? [] : findFalse(array);
 
-            function isFalse (array) {
+            function findFalse (array) {
                 var discard = [];
 
-                for(var i = 0; i<array.length; i++) {
+                for(var i = 0; i < array.length; i++) {
                     if(!callback(array[i])){
                         discard.push(array[i]);
                     }

@@ -6,23 +6,29 @@
             return array === [] ? [] : findTrue(array);
             
             function findTrue (array) {
-                return array.filter(function (el) {
-                    if (callback(el)) {
-                        return el;
+                var keep = [];
+                //Didn't read the instructions, no filter method allowed!
+                for(var i = 0; i < array.length; i++) {
+                    if(callback(array[i])){
+                        keep.push(array[i]);
                     }
-                });
+                }
+                return keep;
             }
         },
 
         discard: function (array, callback) {
-            return array === [] ? [] : isFalse(array);
+            return array === [] ? [] : findFalse(array);
 
-            function isFalse (array) {
-                return array.filter(function (el){
-                    if (!callback(el)) {
-                        return el;
+            function findFalse (array) {
+                var discard = [];
+
+                for(var i = 0; i < array.length; i++) {
+                    if(!callback(array[i])){
+                        discard.push(array[i]);
                     }
-                })
+                }
+                return discard;
             }
         }
     };

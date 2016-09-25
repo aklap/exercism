@@ -41,9 +41,7 @@
                 }
             })
            .reverse()
-           .filter(function(el) {
-                return el !== undefined;
-            });
+           .filter(Boolean);
     };
 
     Allergies.prototype.allergicTo = function (allergyToFind) {

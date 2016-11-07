@@ -1,20 +1,22 @@
-(function() {
-    "use strict";
+(function () {
+  "use strict";
 
-    function Flattener() {}
+  var Flattener = function () {};
 
-    Flattener.prototype.flatten = function (array, contents) {
-            contents = contents || [];
+  Flattener.prototype.flatten = function (nestedArray) {
+    //base case is an element that doesn't contain an array
+    var flat = [];
 
-            for(var i = 0; i < array.length; i++) {
-                if (array[i] !== null && array[i].constructor === Array) {
-                    this.flatten(array[i], contents);
-                } else if(array[i] !== null) {
-                    contents.push(array[i]);
-                }
-            }
-            return contents;
-    };
+    for(var i = 0; i < nestedArray.length; i++) {
+      if(Array.isArray(nestedArray[i])) {
+         flat = flat.concat(this.flatten(nestedArray[i]));
+      } else if (nestedArray[i] !== null) {
+          flat.push(nestedArray[i]);
+      }
+    }
+    
+    return flat;
+  };
 
-    module.exports = Flattener;
+  module.exports = Flattener;
 })();

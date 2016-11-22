@@ -19,7 +19,7 @@
     var rows = this.rows;
 
      return rows[0].map(function (_, i) {
-      return rows.map(function (el, j) {
+      return rows.map(function (_, j) {
         return rows[j][i]; 
       })
      });

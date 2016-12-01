@@ -2,7 +2,7 @@
     "use strict";
 
     // Argument Object
-    function ArgumentError () {
+    function ArgumentError() {
         this.name = 'ArgumentError';
     }
 
@@ -22,27 +22,39 @@
 
         this.answer = function () {
             var statement = this.question;
-
-            if(!statement.match(/plus|minus|multiplied by|divided by/)) {
-                throw new ArgumentError;
-            }
-
-            // replace all letters with signs
-            for(var op in OPERATORS) {
-
-                if(statement.includes(op)){
-                    var re = new RegExp(op, 'g');
-                    statement = statement.replace(re, OPERATORS[op]);
-                }
-            }
-
-            //recursively solve; base case is 1 element
-            if (statement.split(' ').length > 1) {
-
-                statement = eval(statement.split(' ').slice(0,3).join(' ')) + ' ' + statement.split(' ').slice(3).join(' ');
-            }
             
-            return eval(statement);
+        // check validity of input
+            function isValid(str) {
+                return !(/plus|minus|multiplied by|divided by/).test(str);
+            }
+
+         // replace all letters with signs
+            function wordsToSigns(str){
+                for(var op in OPERATORS) {
+                    if(str.includes(op)){
+                        var re = new RegExp(op, 'g');
+                        str = str.replace(re, OPERATORS[op]);
+                    }
+                }
+                
+                return str;
+            }
+
+        // handle multiple ops
+            function orderOps(str) {
+                var first = str.split(' ').slice(0,3).join(' ');
+                var sec = str.split(' ').slice(3).join(' ');
+
+                return eval(first) + ' ' + sec;
+            }
+        //
+
+            if(isValid(statement)) {
+                throw new ArgumentError;
+            } else {
+                var math = wordsToSigns(statement);
+                return eval(orderOps(math));
+            }
         }
     }
 

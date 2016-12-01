@@ -3,31 +3,27 @@
 
     function Raindrops() {}
 
-    Raindrops.prototype.convert = function (n) {
+    Raindrops.prototype.convert = function(n) {
         var numToString = "";
 
-        if (n === 1) {
+        if(n === 1) {
             numToString +='1';
         }
 
-        if (n % 3 === 0) {
+        if(n % 3 === 0) {
             numToString += 'Pling';
         }
 
-        if (n % 5 === 0) {
+        if(n % 5 === 0) {
             numToString += 'Plang';
         }
 
-        if (n % 7 === 0) {
+        if(n % 7 === 0) {
             numToString += 'Plong';
         }
 
-        if (numToString === '') {
-            return n.toString();
-        } else {
-            return numToString;
-        }
-    }
+        return numToString === '' ? n.toString() : numToString;
+    };
 
     module.exports = Raindrops;    
 })();

@@ -11,13 +11,13 @@
         return isNaN(triNum) ? 0 : getDecimalOf(triNum);
 
         function getDecimalOf(triNum) {
-            var triNum = triNum.split('').reverse();
+            triNum = triNum.split('').reverse();
 
             return triNum.reduce(function(prev, curr, index) {
-                return prev + parseInt(curr) * (Math.pow(3, index));
+                return prev + Number(curr) * (Math.pow(3, index));
             }, 0);
         }
-    }
+    };
 
     module.exports = Trinary;
 })();

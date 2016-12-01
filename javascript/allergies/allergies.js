@@ -2,13 +2,12 @@
 
     "use strict";
 
-    function Allergies (tally) {
+    function Allergies(tally) {
         this.tally = tally;
     }
 
     Allergies.prototype.list = function () {
-        var tally = this.tally,
-            ALLERGIES = [
+        var ALLERGIES = [
                 'eggs',
                 'peanuts',
                 'shellfish',
@@ -29,22 +28,23 @@
                 64,
                 128
             ],
-
+            tally = this.tally,
             remainder = this.tally;
 
-       return SCORES
+        return SCORES
             .reverse()
             .map(function(score, index) {
-                if (remainder % score < remainder) {
+                if(remainder % score < remainder) {
                     remainder = remainder % score;
+
                     return ALLERGIES[(SCORES.length-1) - index];
                 }
             })
-           .reverse()
-           .filter(Boolean);
+            .reverse()
+            .filter(Boolean);
     };
 
-    Allergies.prototype.allergicTo = function (allergyToFind) {
+    Allergies.prototype.allergicTo = function(allergyToFind) {
         var allergyList = this.list();
 
         return allergyList.some(function(allergy) {

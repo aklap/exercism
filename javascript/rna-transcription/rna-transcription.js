@@ -1,22 +1,22 @@
-(function () {
+(function() {
     "use strict";
 
-    function DnaTranscriber () {};
+    function DnaTranscriber() {}
 
-    DnaTranscriber.prototype.toRna = function (sequence) {
-        var key = {
-            G: 'C',
-            C: 'G',
-            T: 'A',
-            A: 'U'
-        };
+    DnaTranscriber.prototype.toRna = function(sequence) {
+        var COMPLIMENTS = {
+                G: 'C',
+                C: 'G',
+                T: 'A',
+                A: 'U'
+            },
 
-        var sequence = sequence.split('');
+            sequence = sequence.split('');
         
-        return sequence.map(function (nucleotide) {
-            return key[nucleotide];
+        return sequence.map(function(nucleotide) {
+            return COMPLIMENTS[nucleotide];
         }).join('');
-    }
+    };
 
     module.exports = DnaTranscriber;
 })();

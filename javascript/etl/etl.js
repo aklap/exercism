@@ -1,4 +1,4 @@
-(function(){
+(function() {
     "use strict";
 
     function ETL() {};
@@ -13,6 +13,7 @@
                 return newValue[letter] = parseInt(value);
             });
         }
+        
         return newValue;
     }
 

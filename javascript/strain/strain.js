@@ -1,33 +1,35 @@
-(function () {
+(function() {
     "use strict";
 
     var strain = {
-        keep: function (array, callback) {
-            return array === [] ? [] : findTrue(array);
+        keep: function(arr, callback) {
+            return arr === [] ? [] : findTrue(arr);
             
-            function findTrue (array) {
+            function findTrue(arr) {
                 var keep = [];
-                //Didn't read the instructions, no filter method allowed!
-                for(var i = 0; i < array.length; i++) {
-                    if(callback(array[i])){
-                        keep.push(array[i]);
+
+                for(var i = 0; i<arr.length; i++) {
+                    if(callback(arr[i])){
+                        keep.push(arr[i]);
                     }
                 }
+
                 return keep;
             }
         },
 
-        discard: function (array, callback) {
-            return array === [] ? [] : findFalse(array);
+        discard: function(arr, callback) {
+            return arr === [] ? [] : isFalse(arr);
 
-            function findFalse (array) {
+            function isFalse (arr) {
                 var discard = [];
 
-                for(var i = 0; i < array.length; i++) {
-                    if(!callback(array[i])){
-                        discard.push(array[i]);
+                for(var i = 0; i<arr.length; i++) {
+                    if(!callback(arr[i])){
+                        discard.push(arr[i]);
                     }
                 }
+                
                 return discard;
             }
         }

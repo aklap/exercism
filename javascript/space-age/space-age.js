@@ -1,17 +1,8 @@
-(function () {
-
+(function() {
     "use strict";
 
     var EARTH_YEAR = 31557600,
-        FORMULAS = {
-            calcEarthYears: function (seconds) {
-                return Math.round(seconds/EARTH_YEAR*100)/100;
-            },
 
-            calcPlanetYears: function (seconds, planet) {
-                return Math.round(seconds/(PLANETS[planet]*EARTH_YEAR)*100)/100;    
-            }
-        },
         PLANETS = {
             'Earth' : 1,
             'Mercury': 0.2408467,
@@ -23,18 +14,23 @@
             'Neptune': 164.79132
         };
 
-    function SpaceAge (seconds) {
+    function calcYears(seconds, planet) {
+        planet = PLANETS[planet] || 1;
+
+        return Math.round(seconds/(planet*EARTH_YEAR)*100)/100;
+    }
+
+    function SpaceAge(seconds) {
         this.seconds = seconds;
     }
 
-
-    SpaceAge.prototype.calcYears = function (planet) {
-        return planet === 'Earth' ? FORMULAS.calcEarthYears(this.seconds) : FORMULAS.calcPlanetYears(this.seconds, planet);
+    SpaceAge.prototype.calcYears = function(planet) {
+        return calcYears(this.seconds, planet);
     }
 
     for(var planet in PLANETS) {
-        (function (planet) {
-            SpaceAge.prototype['on' + planet] = function () {
+        (function(planet) {
+            SpaceAge.prototype['on' + planet] = function() {
                 return this.calcYears(planet);
             }
         })(planet);

@@ -1,9 +1,8 @@
-(function () {
-
+(function() {
     "use strict";
 
     var atbash = {
-        encode: function (plaintext) {
+        encode: function(plaintext) {
             var ALPHABET = "abcdefghijklmnopqrstuvwxyz",
                 reversed = ALPHABET.split('').reverse(),
                 cipher = {},
@@ -15,7 +14,7 @@
             } 
 
             //create hash
-            cipher = ALPHABET.split('').map(function (letter, index) {
+            cipher = ALPHABET.split('').map(function(letter, index) {
                 return cipher[ALPHABET[index]] = reversed[index];
             });
 
@@ -36,13 +35,14 @@
             function format(text) {
                 var formatted = "";
 
-                if (text.length > 5) {
+                if(text.length > 5) {
                     for(var i = 0; i < text.length; i++) {
                         (i + 1) % 5 === 0 ? formatted += text[i] + ' ' : formatted += text[i];
                     }
                 } else {
                     formatted = text;
                 }
+
                 return formatted.trim();
             }
 

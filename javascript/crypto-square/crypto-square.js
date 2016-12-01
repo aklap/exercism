@@ -1,55 +1,67 @@
-(function(){
+(function() {
     "use strict";
 
-    function Crypto (plaintext) {
+    function Crypto(plaintext) {
         this.plaintext = plaintext;
+    }
+
+    Crypto.prototype.normalizePlaintext = function() {
+        return this.plaintext.replace(/\W+/ig, '').toLowerCase();
     };
 
-    Crypto.prototype.normalizePlaintext = function () {
-        return this.plaintext.replace(/\W+/ig, '').toLowerCase();
-    }
-
-    Crypto.prototype.size = function () {
-        var plaintext = this.normalizePlaintext();
-
-        return Math.ceil(Math.sqrt(plaintext.length));
-    }
+    Crypto.prototype.size = function() {
+        return Math.ceil(Math.sqrt(this.normalizePlaintext().length));
+    };
 
     Crypto.prototype.plaintextSegments = function () {
         var plaintext = this.normalizePlaintext(),
             size = this.size(),
             ciphertext = "";
 
-        for (var i = 0; i < plaintext.length; i++) {
+        for (var i=0; i < plaintext.length; i++) {
             (i+1) % size === 0 ? ciphertext += plaintext[i] + ' ' : ciphertext += plaintext[i];
         }
+
         return ciphertext.trim().split(' ');
-    }
+    };
 
     Crypto.prototype.ciphertext = function () {
-        var plaintext = this.normalizePlaintext().split('');
-        var start = 0;
-        var chunks = [];
-        var interval = this.size();
-        var ciphertext = [];
-        var column = 0;
+        var interval = this.size(),
+            plaintext = this.normalizePlaintext().split(''),
+            chunks = toChunks(interval, plaintext);
 
-        //split into chunks of letters == size
-        for(var i = interval; start < plaintext.length; i+=interval) {
-            chunks.push(plaintext.slice(start, i));
-            start += interval;
-        }
+        // helper functions:
+        function toChunks(len, text) {
+        // split into chunks of letters == size
+            var chunks = [],
+                start = 0;
 
-        //get each letter that makes up a column
-        while(column <= interval) {
-            for (var chunk = 0; chunk < chunks.length; chunk++) {
-                ciphertext.push(chunks[chunk][column]);
+            for(var i = interval; start < text.length; i+=interval) {
+                chunks.push(text.slice(start, i));
+                start += interval;
             }
-            column++;
+
+            return chunks;
         }
-        
-        return ciphertext.join('');
-    }
+
+        // get each letter that makes up a column
+        function encrypt(plaintextChunks) {
+            var ciphertext = [],
+                column = 0;
+
+            while(column <= interval) {
+                for(var chunk = 0; chunk < chunks.length; chunk++) {
+                    ciphertext.push(chunks[chunk][column]);
+                }
+                column++;
+            }
+
+            return ciphertext.join('');
+        }
+        // end helper functions
+
+        return encrypt(chunks);
+    };
 
     module.exports = Crypto;
 })();

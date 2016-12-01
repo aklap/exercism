@@ -1,10 +1,12 @@
-# Anagram
+# Nth Prime
 
-Write a program that, given a word and a list of possible anagrams, selects the correct sublist.
+Write a program that can tell you what the nth prime is.
 
-Given `"listen"` and a list of candidates like `"enlists" "google"
-"inlets" "banana"` the program should return a list containing
-`"inlets"`.
+By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that
+the 6th prime is 13.
+
+If your language provides methods in the standard library to deal with prime
+numbers, pretend they don't exist and implement them yourself.
 
 ## Setup
 
@@ -26,7 +28,7 @@ changing `xit` to `it`.
 
 ## Source
 
-Inspired by the Extreme Startup game [https://github.com/rchatley/extreme_startup](https://github.com/rchatley/extreme_startup)
+A variation on Problem 7 at Project Euler [http://projecteuler.net/problem=7](http://projecteuler.net/problem=7)
 
 ## Submitting Incomplete Problems
 It's possible to submit an incomplete solution so you can see how others have completed the exercise.

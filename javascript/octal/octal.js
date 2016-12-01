@@ -1,27 +1,38 @@
 (function () {
     "use strict";
 
-    function Octal (input) {
+    function Octal(input) {
         this.input = input;
     }
 
-    Octal.prototype.toDecimal = function () {
-        if (this.input === '1') {
+    Octal.prototype.toDecimal = function() {
+        if(this.input === '1') {
             return parseInt(1);
         }
 
-        if (isNaN(this.input) || this.input.includes('8')) {
+        if(isNaN(this.input) || this.input.includes('8')) {
             return 0;
         }
 
-        return this.input.split('').reverse()
-        .map(function(digit, index) {
-            return parseInt(digit)* Math.pow(8, index);
-        })
-        .reduce(function(a,b) {
-            return a+b;
-        })  
-    }
+        return octalToDecimal(this.input);
+        
+        // helper functions
+        function octalToDecimal(octal) {
+            return octal
+                .split('')
+                .reverse()
+                .map(getProducts)
+                .reduce(getSum);  
+        }
+
+        function getSum(a, b) {
+            return a + b;
+        }
+
+        function getProducts(d, i) {
+            return parseInt(d) * Math.pow(8, i);
+        }
+    };
 
     module.exports = Octal;
 })();

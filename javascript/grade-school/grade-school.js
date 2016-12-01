@@ -1,16 +1,16 @@
-(function () {
-    'use strict';
+(function() {
+    "use strict";
 
     function School () {
         var roster = {};
 
-        this.roster = function () {
+        this.roster = function() {
             return roster;
         }
         
-        this.add = function (name, grade) {
-            if (roster[grade]) {
-                roster[grade].push(name)
+        this.add = function(name, grade) {
+            if(roster[grade]) {
+                roster[grade].push(name);
                 roster[grade].sort();
             } else {
                 roster[grade] = [name];
@@ -18,7 +18,7 @@
         }
 
         this.grade = function (n) {
-            return roster[n] || [];
+            return roster[n] ? roster[n].sort() : [];
         }
     }
 

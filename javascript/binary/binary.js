@@ -1,28 +1,35 @@
-(function () {
+(function() {
     "use strict";
 
-    function Binary (string) {
-        this.binaryNum = string;
+    function Binary(string) {
+        this.binaryN = string;
+    }
+
+    Binary.prototype.toDecimal = function() {
+            var products = getProducts(this.binaryN);
+
+        return !this.binaryN.match(/[a-zA-Z]|[2-9]/) ? getSum(products) : 0;
     };
 
-    Binary.prototype.toDecimal = function () {
-        if (this.binaryNum.search(/[a-zA-Z]|[2-9]/) === -1) {
-            var binary = this.binaryNum.split(''),
-                baseProduct = 1,
-                products = [];
+    // helper functions
+    function getProducts(binary) {
+        var binary = binary.split('');
+        var acc = 1,
+        products = [];
 
-            for(var i=binary.length-1; i >=0; i--) {
-                products.push(binary[i]*baseProduct);
-                baseProduct *= 2;
-            }
-
-            return products.reduce(function (a, b) { 
-                return a + b; 
-            },0);
-        } else {
-            return 0;
+        for(var i=binary.length-1; i >=0; i--) {
+            products.push(binary[i]*acc);
+            acc *= 2;
         }
-    };
+
+        return products;
+    }
+
+    function getSum(arr) {
+        return arr.reduce(function(a, b) { 
+            return a + b; 
+        });
+    }
 
     module.exports = Binary;
 })();

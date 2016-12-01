@@ -2,10 +2,9 @@
     "use strict";
 
     function score(word) {
-        var scoreKey = {};
-
-        var points = [1, 2, 3, 4, 5, 8, 10];
-        var letters = [
+        var SCORES = {},
+            POINTS = [1, 2, 3, 4, 5, 8, 10],
+            LETTERS = [
                 'AEIOULNRST', 
                 'DG', 
                 'BCMP', 
@@ -15,26 +14,37 @@
                 'QZ'
             ];
 
-        //create key of all possible letters and points
-       for (var i = 0; i < letters.length; i++) {
-            scoreKey[points[i]] = letters[i];
-       }     
+       function isInvalid(word) {
+        return word === '' || word === null;
+       }
 
-        if(word === '' || word === null) {
+       function getTotal(a, b) {
+            return a + b;
+       }
+
+        function letterToPoints(key, letter, i) {
+            var letterUpcase = letter.toUpperCase();
+
+            for(i in key) {
+                if(key[i].includes(letterUpcase)) {
+                    return parseInt(i);
+                }
+            }
+        }
+
+    // validate word
+        if(isInvalid(word)) {
             return 0;
         }
 
+    // create key of all possible LETTERS and POINTS
+       for (var i = 0; i < LETTERS.length; i++) {
+            SCORES[POINTS[i]] = LETTERS[i];
+       }     
+    
         return word.split('')
-            .map(function(letter) {
-                for(var i in scoreKey) {
-                    if(scoreKey[i].includes(letter.toUpperCase())) {
-                        return parseInt(i);
-                    }
-                }
-            })
-            .reduce(function(a,b) {
-                return a+b;
-            });
+            .map(letterToPoints.bind(this, SCORES))
+            .reduce(getTotal);
     }
 
     module.exports = score;
